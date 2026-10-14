@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#101d32">
+<meta name="description" content="Air Force Medical Assistant study planner with timetable, targets, mock scores, mistakes, vocabulary and streaks.">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>Airforce Prep Planner</title>
+<style>
+:root{--navy:#101d32;--navy2:#192a40;--blue:#4e8cff;--mint:#54d6a0;--bg:#f3f6fb;--card:#fff;--ink:#142238;--muted:#66758a;--line:#e3e9f2;--red:#d94b55}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:12px;padding:11px 14px;font-weight:700}.app{max-width:850px;margin:auto;min-height:100vh}.hero{background:linear-gradient(135deg,var(--navy),#1b3b60);color:#fff;padding:22px 18px 20px;border-radius:0 0 24px 24px}.brand{display:flex;gap:12px;align-items:center}.logo{width:48px;height:48px;border-radius:14px;background:#2c5079;display:grid;place-items:center;font-size:25px}.brand h1{font-size:20px;margin:0}.brand p{margin:3px 0 0;color:#c4d4e8;font-size:12px}.date{font-size:13px;color:#c4d4e8;margin-top:18px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}.stat{background:#ffffff12;border:1px solid #ffffff20;padding:12px;border-radius:14px}.stat strong{font-size:21px;display:block}.stat span{font-size:11px;color:#c4d4e8}.progress{height:8px;background:#ffffff25;border-radius:99px;overflow:hidden;margin-top:13px}.progress div{height:100%;background:var(--mint);width:0%;transition:width .2s}.tabs{display:flex;gap:7px;padding:14px 12px 5px;overflow:auto}.tab{background:#e5ebf5;color:#40516a;white-space:nowrap;padding:10px 13px}.tab.active{background:var(--navy);color:#fff}.content{padding:10px 12px 35px}.panel{display:none}.panel.active{display:block}.card{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:15px;margin:9px 0;box-shadow:0 3px 12px #14223806}.card h2{font-size:17px;margin:0 0 12px}.card h3{font-size:14px;margin:0}.muted{color:var(--muted);font-size:12px}.row{display:flex;gap:9px;align-items:center}.between{justify-content:space-between}.field{display:flex;flex-direction:column;gap:5px;margin:9px 0;flex:1;min-width:0}.field label{font-size:12px;font-weight:700;color:#506078}.field input,.field select,.field textarea{width:100%;border:1px solid #d8e0ec;border-radius:10px;padding:10px;background:#fff;color:var(--ink)}.field textarea{min-height:74px;resize:vertical}.primary{background:var(--blue);color:white}.secondary{background:#e8eef8;color:#243a59}.danger{background:#fde8e9;color:#a72d37}.small{font-size:12px;padding:7px 9px;border-radius:9px}.task{display:flex;align-items:flex-start;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}.task:last-child{border-bottom:0}.task input{width:19px;height:19px;accent-color:#2878ee;margin-top:2px}.task.done .tasktitle{text-decoration:line-through;color:#7a8798}.taskbody{flex:1}.tasktitle{font-weight:700;font-size:14px}.taskmeta{font-size:12px;color:var(--muted);margin-top:3px}.pill{font-size:10px;background:#eaf1ff;color:#2854a2;padding:4px 7px;border-radius:99px;white-space:nowrap}.empty{color:var(--muted);text-align:center;padding:20px 8px;font-size:13px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:12px}th,td{text-align:left;padding:9px;border-bottom:1px solid var(--line);vertical-align:top}th{color:#5c6d83;background:#f8faff}.word{font-size:20px;font-weight:800}.answer{display:none;background:#edf8f2;padding:10px;border-radius:10px;margin-top:8px;font-size:13px}.answer.show{display:block}.flash{border:1px dashed #b7c8df;border-radius:14px;padding:18px;text-align:center;margin:10px 0}.flash .muted{margin-bottom:8px}.footer{text-align:center;color:#8995a6;font-size:11px;padding:5px 15px 20px}.installhint{background:#fff6d9;color:#76520b;border:1px solid #f2df9b;border-radius:12px;padding:11px;font-size:12px;line-height:1.5;margin-top:12px} @media(min-width:650px){.content{padding:12px 22px 40px}.hero{padding:26px 24px}.tabs{padding-left:22px}.stats{max-width:520px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="hero">
+  <div class="brand"><div class="logo">✈️</div><div><h1>AIRFORCE PREP</h1><p>Medical Assistant • Study Planner</p></div></div>
+  <div class="date" id="todayDate"></div>
+  <div class="stats">
+    <div class="stat"><strong id="doneStat">0/0</strong><span>TASKS DONE</span></div>
+    <div class="stat"><strong id="streakStat">0 🔥</strong><span>DAY STREAK</span></div>
+    <div class="stat"><strong id="mockStat">—</strong><span>BEST MOCK %</span></div>
+  </div>
+  <div class="progress"><div id="progressBar"></div></div>
+</header>
+<nav class="tabs" aria-label="Main sections">
+<button class="tab active" data-tab="today">Today</button><button class="tab" data-tab="timetable">Timetable</button><button class="tab" data-tab="mocks">Mock scores</button><button class="tab" data-tab="mistakes">Mistake book</button><button class="tab" data-tab="vocab">Vocabulary</button><button class="tab" data-tab="progress">Progress</button>
+</nav>
+<main class="content">
+<section class="panel active" id="today">
+  <div class="card"><div class="row between"><div><h2>Today's targets</h2><div class="muted">Tick each task when complete.</div></div><button class="secondary small" id="resetDay">Reset today</button></div><div id="tasks"></div></div>
+  <div class="card"><h2>Quick add target</h2><form id="targetForm"><div class="field"><label>Task</label><input id="targetName" required placeholder="e.g. 25 error detection questions"></div><div class="row"><div class="field"><label>Subject</label><select id="targetSubject"><option>English</option><option>Reasoning</option><option>General Awareness</option><option>Mock Test</option><option>Revision</option></select></div><div class="field"><label>Time</label><input id="targetTime" placeholder="e.g. 10:00–10:30"></div></div><button class="primary" type="submit">Add target</button></form></div>
+</section>
+<section class="panel" id="timetable">
+  <div class="card"><h2>Daily library timetable · 9 AM–5 PM</h2><div class="muted">Starter schedule for Phase-I English + RAGA. Edit tasks from Today if needed.</div><div id="schedule"></div><div class="installhint">Reminder: follow the current official intake notification for the exact syllabus and marking scheme. This planner is a personal organiser, not an official IAF app.</div></div>
+</section>
+<section class="panel" id="mocks">
+  <div class="card"><h2>Add mock test result</h2><form id="mockForm"><div class="row"><div class="field"><label>Test name</label><input id="mockName" required placeholder="e.g. English + RAGA Mock 1"></div><div class="field"><label>Date</label><input id="mockDate" type="date" required></div></div><div class="row"><div class="field"><label>Correct</label><input id="mockCorrect" type="number" min="0" required value="35"></div><div class="field"><label>Wrong</label><input id="mockWrong" type="number" min="0" required value="5"></div><div class="field"><label>Unattempted</label><input id="mockSkip" type="number" min="0" required value="5"></div></div><div class="field"><label>Maximum marks</label><input id="mockMax" type="number" min="1" required value="50"></div><button class="primary" type="submit">Save score</button></form><p class="muted">Score estimate uses +1 for correct and −0.25 for wrong. Check the current intake notification for the official pattern.</p></div>
+  <div class="card"><h2>Mock history</h2><div id="mockList"></div></div>
+</section>
+<section class="panel" id="mistakes">
+  <div class="card"><h2>Add a mistake</h2><form id="mistakeForm"><div class="field"><label>Subject / topic</label><input id="mistakeTopic" required placeholder="e.g. English — subject-verb agreement"></div><div class="field"><label>Question / my mistake</label><textarea id="mistakeQuestion" required placeholder="What did you get wrong?"></textarea></div><div class="field"><label>Correct rule / explanation</label><textarea id="mistakeFix" required placeholder="Write the correct rule in your own words"></textarea></div><button class="primary" type="submit">Save mistake</button></form></div>
+  <div class="card"><h2>Review mistakes</h2><div id="mistakeList"></div></div>
+</section>
+<section class="panel" id="vocab">
+  <div class="card"><div class="row between"><div><h2>Vocabulary revision</h2><div class="muted">Tap “Reveal” and mark whether you knew it.</div></div><button class="secondary small" id="shuffleVocab">Next word ↻</button></div><div class="flash"><div class="muted" id="vocabCount"></div><div class="word" id="vocabWord"></div><div class="answer" id="vocabAnswer"></div><button class="secondary" id="revealVocab">Reveal meaning</button><div class="row" style="justify-content:center;margin-top:10px"><button class="primary small" id="knewVocab">✓ Knew it</button><button class="danger small" id="missedVocab">× Revise again</button></div></div><div class="muted">Starter deck is editable by adding more words in a future version. These are sample exam-oriented words.</div></div>
+  <div class="card"><h2>Revision status</h2><div id="vocabStats"></div></div>
+</section>
+<section class="panel" id="progress">
+  <div class="card"><h2>Progress overview</h2><div id="progressSummary"></div></div>
+  <div class="card"><h2>Data backup</h2><p class="muted">Your data is saved on this device/browser. Export a backup regularly, especially before clearing browser data.</p><div class="row"><button class="primary" id="exportData">Export backup</button><label class="secondary" style="padding:11px 14px;border-radius:12px;font-weight:700;cursor:pointer">Import backup<input id="importFile" type="file" accept="application/json" hidden></label></div><button class="danger small" id="clearData" style="margin-top:12px">Delete all app data</button></div>
+</section>
+</main>
+<div class="footer">Independent study planner • Not affiliated with the Indian Air Force</div>
+</div>
+<script>
+const KEY='airforcePrepPlanner_v1';
+const schedule=[
+['09:00–09:20','Vocabulary + yesterday’s mistakes','Revision'],
+['09:20–10:40','English grammar + question practice','English'],
+['10:40–10:55','Break','Break'],
+['10:55–12:10','Reasoning concept + practice','Reasoning'],
+['12:10–12:55','Static General Awareness','General Awareness'],
+['12:55–13:25','Lunch break','Break'],
+['13:25–14:10','Current affairs + defence awareness','General Awareness'],
+['14:10–15:00','English: comprehension + mixed practice','English'],
+['15:00–15:15','Break','Break'],
+['15:15–16:00','Sectional test / full mock (scheduled days)','Mock Test'],
+['16:00–17:00','Analyse errors + revise weak topics','Revision']
+];
+const defaultTasks=schedule.filter(x=>x[2]!=='Break').map((x,i)=>({id:'d'+i,title:x[1],subject:x[2],time:x[0],done:false,day:localDay()}));
+const vocabDeck=[
+['Abundant','प्रचुर; plentiful, ample. Antonym: scarce.'],
+['Candid','स्पष्टवादी; frank, honest. Antonym: deceitful.'],
+['Diligent','परिश्रमी; hardworking, industrious. Antonym: lazy, idle.'],
+['Frugal','मितव्ययी; economical, thrifty. Antonym: wasteful.'],
+['Hostile','शत्रुतापूर्ण; unfriendly, antagonistic. Antonym: friendly.'],
+['Lucid','स्पष्ट; clear, intelligible. Antonym: obscure.'],
+['Obsolete','अप्रचलित; outdated, outmoded. Antonym: current, modern.'],
+['Prudent','विवेकशील; wise, sensible, cautious. Antonym: reckless.'],
+['Reluctant','अनिच्छुक; unwilling, hesitant. Antonym: eager, willing.'],
+['Vivid','जीवंत/स्पष्ट; striking, graphic. Antonym: dull, vague.'],
+['Benevolent','दयालु; kind, charitable. Antonym: malevolent.'],
+['Concise','संक्षिप्त; brief, succinct. Antonym: lengthy, verbose.']
+];
+function localDay(d=new Date()){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}}
+let state=load();
+function save(){localStorage.setItem(KEY,JSON.stringify(state));renderAll()}
+function ensure(){if(!state.tasks)state.tasks=defaultTasks;if(!state.mocks)state.mocks=[];if(!state.mistakes)state.mistakes=[];if(!state.vocab)state.vocab={index:0,known:[],revise:[]};if(!state.history)state.history={};}
+ensure();
+document.getElementById('todayDate').textContent=new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===b.dataset.tab))}));
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function todayTasks(){return state.tasks.filter(t=>t.day===localDay())}
+function renderTasks(){let list=todayTasks();document.getElementById('tasks').innerHTML=list.length?list.map(t=>`<div class="task ${t.done?'done':''}"><input type="checkbox" data-task="${t.id}" ${t.done?'checked':''}><div class="taskbody"><div class="tasktitle">${escapeHtml(t.title)}</div><div class="taskmeta">${escapeHtml(t.time||'Flexible')} · ${escapeHtml(t.subject)}</div></div><button class="danger small" data-delete="${t.id}">×</button></div>`).join(''):'<div class="empty">No targets yet. Add one below.</div>';
+document.querySelectorAll('[data-task]').forEach(c=>c.onchange=()=>{let t=state.tasks.find(x=>x.id===c.dataset.task);if(t){t.done=c.checked;if(c.checked){state.history[localDay()]=true}save()}});
+document.querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>{state.tasks=state.tasks.filter(t=>t.id!==b.dataset.delete);save()})}
+function renderSchedule(){document.getElementById('schedule').innerHTML=schedule.map(s=>`<div class="task"><div class="pill">${s[0]}</div><div class="taskbody"><div class="tasktitle">${s[1]}</div><div class="taskmeta">${s[2]}</div></div></div>`).join('')}
+function renderMocks(){let ms=state.mocks;document.getElementById('mockList').innerHTML=ms.length?ms.slice().reverse().map(m=>`<div class="task"><div class="taskbody"><div class="tasktitle">${escapeHtml(m.name)} <span class="pill">${m.pct.toFixed(1)}%</span></div><div class="taskmeta">${m.date} · ${m.score.toFixed(2)}/${m.max} marks · Correct ${m.correct}, wrong ${m.wrong}, skipped ${m.skip}</div></div><button class="danger small" data-mockdel="${m.id}">×</button></div>`).join(''):'<div class="empty">No mock results saved yet.</div>';document.querySelectorAll('[data-mockdel]').forEach(b=>b.onclick=()=>{state.mocks=state.mocks.filter(m=>m.id!==b.dataset.mockdel);save()})}
+function renderMistakes(){document.getElementById('mistakeList').innerHTML=state.mistakes.length?state.mistakes.slice().reverse().map(m=>`<div class="card"><div class="row between"><h3>${escapeHtml(m.topic)}</h3><button class="danger small" data-mdel="${m.id}">Delete</button></div><p>${escapeHtml(m.question)}</p><div class="answer show"><b>Correct rule:</b><br>${escapeHtml(m.fix)}</div><label class="muted"><input type="checkbox" data-reviewed="${m.id}" ${m.reviewed?'checked':''}> Reviewed again</label></div>`).join(''):'<div class="empty">Your saved mistakes will appear here.</div>';document.querySelectorAll('[data-mdel]').forEach(b=>b.onclick=()=>{state.mistakes=state.mistakes.filter(m=>m.id!==b.dataset.mdel);save()});document.querySelectorAll('[data-reviewed]').forEach(c=>c.onchange=()=>{let m=state.mistakes.find(x=>x.id===c.dataset.reviewed);if(m)m.reviewed=c.checked;save()})}
+function currentVocab(){return vocabDeck[state.vocab.index%vocabDeck.length]}
+function renderVocab(){let v=currentVocab();document.getElementById('vocabWord').textContent=v[0];document.getElementById('vocabAnswer').textContent=v[1];document.getElementById('vocabAnswer').classList.remove('show');document.getElementById('vocabCount').textContent=`Word ${(state.vocab.index%vocabDeck.length)+1} of ${vocabDeck.length}`;document.getElementById('vocabStats').textContent=`Known: ${state.vocab.known.length} · Revise again: ${state.vocab.revise.length}`}
+function renderProgress(){let done=todayTasks().filter(t=>t.done).length,total=todayTasks().length;let best=state.mocks.length?Math.max(...state.mocks.map(m=>m.pct)).toFixed(1)+'%':'—';document.getElementById('doneStat').textContent=`${done}/${total}`;document.getElementById('streakStat').textContent=streak()+' 🔥';document.getElementById('mockStat').textContent=best;document.getElementById('progressBar').style.width=(total?done/total*100:0)+'%';document.getElementById('progressSummary').innerHTML=`<div class="grid2"><div class="stat" style="background:#edf3ff;color:#172b49"><strong>${done}/${total}</strong><span style="color:#66758a">Today's tasks done</span></div><div class="stat" style="background:#edf8f2;color:#172b49"><strong>${state.mocks.length}</strong><span style="color:#66758a">Mocks recorded</span></div><div class="stat" style="background:#fff4e5;color:#172b49"><strong>${state.mistakes.length}</strong><span style="color:#66758a">Mistakes saved</span></div><div class="stat" style="background:#f5edff;color:#172b49"><strong>${streak()} days</strong><span style="color:#66758a">Current streak</span></div></div><p class="muted">Streak counts days on which at least one task was completed. Complete a task each study day to keep it going.</p>`}
+function streak(){let n=0,d=new Date();if(!state.history[localDay(d)])d.setDate(d.getDate()-1);while(state.history[localDay(d)]){n++;d.setDate(d.getDate()-1)}return n}
+function renderAll(){renderTasks();renderSchedule();renderMocks();renderMistakes();renderVocab();renderProgress()}
+document.getElementById('targetForm').onsubmit=e=>{e.preventDefault();state.tasks.push({id:'t'+Date.now(),title:document.getElementById('targetName').value.trim(),subject:document.getElementById('targetSubject').value,time:document.getElementById('targetTime').value.trim(),done:false,day:localDay()});e.target.reset();save()};
+document.getElementById('resetDay').onclick=()=>{if(confirm('Reset all today’s targets to not completed?')){todayTasks().forEach(t=>t.done=false);delete state.history[localDay()];save()}};
+document.getElementById('mockDate').value=localDay();
+document.getElementById('mockForm').onsubmit=e=>{e.preventDefault();let correct=+mockCorrect.value,wrong=+mockWrong.value,skip=+mockSkip.value,max=+mockMax.value;let score=correct-wrong*.25;state.mocks.push({id:'m'+Date.now(),name:mockName.value.trim(),date:mockDate.value,correct,wrong,skip,max,score,pct:Math.max(0,score)/max*100});e.target.reset();document.getElementById('mockDate').value=localDay();document.getElementById('mockCorrect').value=35;document.getElementById('mockWrong').value=5;document.getElementById('mockSkip').value=5;document.getElementById('mockMax').value=50;save()};
+document.getElementById('mistakeForm').onsubmit=e=>{e.preventDefault();state.mistakes.push({id:'x'+Date.now(),topic:mistakeTopic.value.trim(),question:mistakeQuestion.value.trim(),fix:mistakeFix.value.trim(),reviewed:false});e.target.reset();save()};
+document.getElementById('revealVocab').onclick=()=>document.getElementById('vocabAnswer').classList.toggle('show');
+document.getElementById('shuffleVocab').onclick=()=>{state.vocab.index=(state.vocab.index+1)%vocabDeck.length;renderVocab()};
+document.getElementById('knewVocab').onclick=()=>{let w=currentVocab()[0];if(!state.vocab.known.includes(w))state.vocab.known.push(w);state.vocab.revise=state.vocab.revise.filter(x=>x!==w);state.vocab.index=(state.vocab.index+1)%vocabDeck.length;save()};
+document.getElementById('missedVocab').onclick=()=>{let w=currentVocab()[0];if(!state.vocab.revise.includes(w))state.vocab.revise.push(w);state.vocab.known=state.vocab.known.filter(x=>x!==w);state.vocab.index=(state.vocab.index+1)%vocabDeck.length;save()};
+document.getElementById('exportData').onclick=()=>{let blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='airforce-planner-backup.json';a.click();URL.revokeObjectURL(a.href)};
+document.getElementById('importFile').onchange=async e=>{try{let f=e.target.files[0];if(!f)return;let obj=JSON.parse(await f.text());if(!obj||typeof obj!=='object'||!Array.isArray(obj.tasks))throw Error();state=obj;ensure();save();alert('Backup imported successfully.')}catch(err){alert('This backup file is not valid.')}e.target.value=''};
+document.getElementById('clearData').onclick=()=>{if(confirm('Delete all saved tasks, scores, mistakes and vocabulary progress from this browser? Export a backup first if needed.')){localStorage.removeItem(KEY);state={};ensure();save()}};
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+renderAll();
+</script>
+</body></html>
